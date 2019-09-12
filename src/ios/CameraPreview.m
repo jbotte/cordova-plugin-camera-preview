@@ -37,6 +37,7 @@
     BOOL tapToFocus = (BOOL) [command.arguments[9] boolValue];
     BOOL disableExifHeaderStripping = (BOOL) [command.arguments[10] boolValue]; // ignore Android only
     self.storeToFile = (BOOL) [command.arguments[11] boolValue];
+    BOOL hideOnStart = (BOOL)[command.arguments[12] boolValue];
 
     // Create the session manager
     self.sessionManager = [[CameraSessionManager alloc] init];
@@ -64,6 +65,10 @@
     } else {
       self.cameraRenderController.view.alpha = alpha;
       [self.webView.superview insertSubview:self.cameraRenderController.view aboveSubview:self.webView];
+    }
+
+    if (hideOnStart) {
+      [self.cameraRenderController.view setHidden:YES];
     }
 
     // Setup session

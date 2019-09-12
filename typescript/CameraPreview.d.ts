@@ -21,6 +21,7 @@ interface CameraPreviewStartCameraOptions {
  y?: number;
  disableExifHeaderStripping?: boolean;
  storeToFile?: boolean;
+ hideOnStart?: boolean;
 }
 
 interface CameraPreviewTakePictureOptions {

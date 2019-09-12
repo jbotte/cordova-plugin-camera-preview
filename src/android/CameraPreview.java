@@ -96,7 +96,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
 
     if (START_CAMERA_ACTION.equals(action)) {
       if (cordova.hasPermission(permissions[0])) {
-        return startCamera(args.getInt(0), args.getInt(1), args.getInt(2), args.getInt(3), args.getString(4), args.getBoolean(5), args.getBoolean(6), args.getBoolean(7), args.getString(8), args.getBoolean(9), args.getBoolean(10), args.getBoolean(11), callbackContext);
+        return startCamera(args.getInt(0), args.getInt(1), args.getInt(2), args.getInt(3), args.getString(4), args.getBoolean(5), args.getBoolean(6), args.getBoolean(7), args.getString(8), args.getBoolean(9), args.getBoolean(10), args.getBoolean(11), args.getBoolean(12), callbackContext);
       } else {
         this.execCallback = callbackContext;
         this.execArgs = args;
@@ -180,7 +180,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
       }
     }
     if (requestCode == CAM_REQ_CODE) {
-      startCamera(this.execArgs.getInt(0), this.execArgs.getInt(1), this.execArgs.getInt(2), this.execArgs.getInt(3), this.execArgs.getString(4), this.execArgs.getBoolean(5), this.execArgs.getBoolean(6), this.execArgs.getBoolean(7), this.execArgs.getString(8), this.execArgs.getBoolean(9), this.execArgs.getBoolean(10), this.execArgs.getBoolean(11), this.execCallback);
+      startCamera(this.execArgs.getInt(0), this.execArgs.getInt(1), this.execArgs.getInt(2), this.execArgs.getInt(3), this.execArgs.getString(4), this.execArgs.getBoolean(5), this.execArgs.getBoolean(6), this.execArgs.getBoolean(7), this.execArgs.getString(8), this.execArgs.getBoolean(9), this.execArgs.getBoolean(10), this.execArgs.getBoolean(11), this.execArgs.getBoolean(12), this.execCallback);
     }
   }
 
@@ -237,7 +237,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     return true;
   }
 
-    private boolean startCamera(int x, int y, int width, int height, String defaultCamera, Boolean tapToTakePicture, Boolean dragEnabled, final Boolean toBack, String alpha, boolean tapFocus, boolean disableExifHeaderStripping, boolean storeToFile, CallbackContext callbackContext) {
+    private boolean startCamera(int x, int y, int width, int height, String defaultCamera, Boolean tapToTakePicture, Boolean dragEnabled, final Boolean toBack, String alpha, boolean tapFocus, boolean disableExifHeaderStripping, boolean storeToFile, boolean hideOnStart, CallbackContext callbackContext) {
     Log.d(TAG, "start camera action");
     if (fragment != null) {
       callbackContext.error("Camera already started");
@@ -255,6 +255,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     fragment.disableExifHeaderStripping = disableExifHeaderStripping;
     fragment.storeToFile = storeToFile;
     fragment.toBack = toBack;
+    fragment.hideOnStart = hideOnStart;
 
     DisplayMetrics metrics = cordova.getActivity().getResources().getDisplayMetrics();
     // offset
@@ -324,6 +325,20 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
         FragmentManager fragmentManager = cordova.getActivity().getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(containerView.getId(), fragment);
+      
+        if(hideOnStart) { //just stubbed out explinationo beloow
+
+
+          /*
+          commented out for future contributer.
+
+          Code below hides the camera preview window, but CameraPreview.show() doesn't seem to show, unless I open up app switcher and re-click on the app.
+          I have only tested in device simulator and need to test oon a real device, maybe that will fix things.
+          */
+
+
+          //fragmentTransaction.hide(fragment);
+        }
         fragmentTransaction.commit();
       }
     });

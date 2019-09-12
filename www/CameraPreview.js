@@ -33,12 +33,13 @@ CameraPreview.startCamera = function(options, onSuccess, onError) {
 
     options.previewDrag = options.previewDrag || false;
     options.toBack = options.toBack || false;
+    options.hideOnStart = options.hideOnStart || false;
     if (typeof(options.alpha) === 'undefined') {
         options.alpha = 1;
     }
     options.disableExifHeaderStripping = options.disableExifHeaderStripping || false;
     options.storeToFile = options.storeToFile || false;
-    exec(onSuccess, onError, PLUGIN_NAME, "startCamera", [options.x, options.y, options.width, options.height, options.camera, options.tapPhoto, options.previewDrag, options.toBack, options.alpha, options.tapFocus, options.disableExifHeaderStripping, options.storeToFile]);
+    exec(onSuccess, onError, PLUGIN_NAME, "startCamera", [options.x, options.y, options.width, options.height, options.camera, options.tapPhoto, options.previewDrag, options.toBack, options.alpha, options.tapFocus, options.disableExifHeaderStripping, options.storeToFile, options.hideOnStart]);
 };
 
 CameraPreview.stopCamera = function(onSuccess, onError) {

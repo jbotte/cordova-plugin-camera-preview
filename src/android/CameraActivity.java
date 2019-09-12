@@ -87,6 +87,7 @@ public class CameraActivity extends Fragment {
   public boolean disableExifHeaderStripping;
   public boolean storeToFile;
   public boolean toBack;
+  public boolean hideOnStart;
 
   public int width;
   public int height;
